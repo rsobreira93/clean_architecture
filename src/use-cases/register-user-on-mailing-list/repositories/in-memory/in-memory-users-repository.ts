@@ -1,7 +1,7 @@
 import { UserData } from '../../dtos/user-data'
 import { UsersRepository } from '../users-repository'
 
-export class InMemoryUsersRepository implements UsersRepository {
+export class InMemoryUserRepository implements UsersRepository {
   private repository: UserData[]
 
   constructor (repository: UserData[]) {
@@ -9,18 +9,25 @@ export class InMemoryUsersRepository implements UsersRepository {
   }
 
   async create (user: UserData): Promise<void> {
-    throw new Error('Method not implemented.')
+    const exists = await this.exists(user)
+    if (!exists) {
+      this.repository.push(user)
+    }
   }
 
   async findUserByEmail (email: string): Promise<UserData> {
-    return null
+    const found = this.repository.find(user => user.email === email)
+    return found || null
   }
 
   async findAllUsers (): Promise<UserData[]> {
-    throw new Error('Method not implemented.')
+    return this.repository
   }
 
   async exists (user: UserData): Promise<boolean> {
-    throw new Error('Method not implemented.')
+    if (await this.findUserByEmail(user.email) === null) {
+      return false
+    }
+    return true
   }
 }
