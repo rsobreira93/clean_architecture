@@ -38,4 +38,8 @@ describe('Email validation', () => {
     const email:string = 'any@'
     expect(Email.validate(email)).toBeFalsy()
   })
+  test('should not be able accept domain with a parte larger than 63 chars', async () => {
+    const email:string = 'any@' + 'd'.repeat(64) + '.com'
+    expect(Email.validate(email)).toBeFalsy()
+  })
 })
