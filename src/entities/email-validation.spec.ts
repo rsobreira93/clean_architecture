@@ -42,4 +42,8 @@ describe('Email validation', () => {
     const email:string = 'any@' + 'd'.repeat(64) + '.com'
     expect(Email.validate(email)).toBeFalsy()
   })
+  test('should not be able accept local parte with invalid char', async () => {
+    const email:string = 'any email@mail.com'
+    expect(Email.validate(email)).toBeFalsy()
+  })
 })
