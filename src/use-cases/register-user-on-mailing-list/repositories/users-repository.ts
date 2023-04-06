@@ -1,4 +1,4 @@
-import { UserData } from '../dtos/user-data'
+import { UserData } from '../../../entities/user-data'
 
 export interface UsersRepository {
     create(user: UserData): Promise<void>
