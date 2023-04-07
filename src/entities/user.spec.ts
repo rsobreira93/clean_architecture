@@ -1,5 +1,6 @@
 import { left } from '../shared'
 import { InvalidEmailError } from './errors/invalid-email-errors'
+import { InvalidNameError } from './errors/invalid-name-errors'
 import { User } from './user'
 
 describe('User domain entity', () => {
@@ -8,5 +9,19 @@ describe('User domain entity', () => {
     const err = User.create({ name: 'any_name', email: invalidEmail })
 
     expect(err).toEqual(left(new InvalidEmailError()))
+  })
+
+  test('should not be able to create a user with less than two characters', async () => {
+    const invalidName = 'O    '
+    const error = User.create({ name: invalidName, email: 'email@mail.com' })
+
+    expect(error).toEqual(left(new InvalidNameError()))
+  })
+
+  test('should not be able to create a user with great than 255 characters', async () => {
+    const invalidName = 'O'.repeat(255)
+    const error = User.create({ name: invalidName, email: 'email@mail.com' })
+
+    expect(error).toEqual(left(new InvalidNameError()))
   })
 })
