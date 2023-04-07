@@ -19,9 +19,18 @@ describe('User domain entity', () => {
   })
 
   test('should not be able to create a user with great than 255 characters', async () => {
-    const invalidName = 'O'.repeat(255)
+    const invalidName = 'O'.repeat(257)
     const error = User.create({ name: invalidName, email: 'email@mail.com' })
 
     expect(error).toEqual(left(new InvalidNameError()))
+  })
+
+  test('should be able to create a new user', () => {
+    const name = 'any_name'
+    const email = 'james@gmail.com'
+    const user: User = User.create({ name, email }).value as User
+
+    expect(user.name.value).toEqual(name)
+    expect(user.email.value).toEqual(email)
   })
 })
