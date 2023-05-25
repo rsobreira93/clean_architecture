@@ -1,7 +1,5 @@
-import { InvalidEmailError } from '../../entities/errors/invalid-email-errors'
-import { InvalidNameError } from '../../entities/errors/invalid-name-errors'
-import { User } from '../../entities/user'
-import { UserData } from '../../entities/user-data'
+import { User, UserData } from '../../entities'
+import { InvalidEmailError, InvalidNameError } from '../../entities/errors'
 import { Either, left, right } from '../../shared'
 import { UsersRepository } from './repositories/users-repository'
 
@@ -11,8 +9,11 @@ export class RegisterUserOnMailingList {
     this.userRepository = userRepository
   }
 
-  async execute (request: UserData): Promise<Either<InvalidNameError | InvalidEmailError, UserData>> {
-    const userOrError: Either<InvalidNameError | InvalidEmailError, User> = User.create(request)
+  async execute (
+    request: UserData
+  ): Promise<Either<InvalidNameError | InvalidEmailError, UserData>> {
+    const userOrError: Either<InvalidNameError | InvalidEmailError, User> =
+      User.create(request)
 
     if (userOrError.isLeft()) {
       return left(userOrError.value)

@@ -1,4 +1,4 @@
-import { UserData } from '../../src/entities/user-data'
+import { UserData } from '../../src/entities'
 import { RegisterUserOnMailingList } from '../../src/use-cases/register-user-on-mailing-list/register-user-on-mailing-list'
 import { InMemoryUserRepository } from '../../src/use-cases/register-user-on-mailing-list/repositories/in-memory/in-memory-users-repository'
 
