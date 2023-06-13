@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
     "prepare": "husky install",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
@@ -43,5 +44,8 @@
     "module-alias": "^2.2.2",
     "mongodb": "^3.7.3",
     "nodemailer": "^6.7.0"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
