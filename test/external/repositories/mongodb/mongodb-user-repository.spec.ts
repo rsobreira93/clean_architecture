@@ -25,4 +25,23 @@ describe('Mongodb User Repository', () => {
 
     expect(await userRepository.exists(user)).toBeTruthy()
   })
+
+  test('find all users should return all added users', async () => {
+    const userRepository = new MongodbUserRepository()
+
+    await userRepository.create({
+      name: 'Test User',
+      email: 'kenaa@example.com'
+    })
+
+    await userRepository.create({
+      name: 'Test User 2',
+      email: 'kenaa2@example.com'
+    })
+
+    const users = await userRepository.findAllUsers()
+
+    expect(users[0].name).toEqual('Test User')
+    expect(users[1].name).toEqual('Test User 2')
+  })
 })
