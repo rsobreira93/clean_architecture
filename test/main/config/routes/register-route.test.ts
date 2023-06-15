@@ -1,7 +1,20 @@
 import request from 'supertest'
 import app from '@/main/config/app'
+import { mongoHelper } from '@/external/repositories/mongodb/helper'
 
 describe('Register routes', () => {
+  beforeAll(async () => {
+    await mongoHelper.connect(process.env.MONGO_URL)
+  })
+
+  afterAll(async () => {
+    await mongoHelper.disconnect()
+  })
+
+  beforeEach(async () => {
+    mongoHelper.clearCollection('Users')
+  })
+
   test('should return an account on success', async () => {
     app.post('/test_cors', (req, res) => {
       res.send()
