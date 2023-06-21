@@ -1,4 +1,4 @@
-import { User, UserData } from '@/entities'
+import { UserData } from '@/entities'
 import { Either, right } from '@/shared'
 import { RegisterAndSendEmail } from '@/use-cases/register-and-send-email/register-and-send-email'
 import { RegisterUserOnMailingList } from '@/use-cases/register-user-on-mailing-list/register-user-on-mailing-list'
@@ -51,12 +51,12 @@ describe('Register and send email to user', () => {
     const registerAndSendEmail = new RegisterAndSendEmail(registerUserOnMailingList, sendEmailUseCase)
     const name = 'any_name'
     const email = 'any_email@mail.com'
-    const response: User = (await registerAndSendEmail.perform({ name, email })).value as User
+    const response = (await registerAndSendEmail.perform({ name, email })).value as UserData
+
     const user = await usersRepository.findUserByEmail(email)
 
     expect(user.name).toBe('any_name')
-    expect(response.name.value).toBe('any_name')
+    expect(response.name).toBe('any_name')
     expect(mailServiceMock.timesSendWasCalled).toBe(1)
-    expect(response.name.value).toEqual('any_name')
   })
 })
