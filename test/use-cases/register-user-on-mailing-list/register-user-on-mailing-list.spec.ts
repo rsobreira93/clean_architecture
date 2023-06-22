@@ -1,6 +1,6 @@
-import { UserData } from '../../src/entities/user-data'
-import { RegisterUserOnMailingList } from '../../src/use-cases/register-user-on-mailing-list/register-user-on-mailing-list'
-import { InMemoryUserRepository } from '../../src/use-cases/register-user-on-mailing-list/repositories/in-memory/in-memory-users-repository'
+import { UserData } from '@/entities'
+import { RegisterUserOnMailingList } from '@/use-cases/register-user-on-mailing-list/register-user-on-mailing-list'
+import { InMemoryUserRepository } from '@/use-cases/register-user-on-mailing-list/repositories/in-memory/in-memory-users-repository'
 
 describe('Register user on mailing list use case', () => {
   test('should add user withe complete data to mailing list', async () => {
@@ -9,7 +9,7 @@ describe('Register user on mailing list use case', () => {
     const registerUserOnMailingList = new RegisterUserOnMailingList(usersRepository)
     const name = 'any_name'
     const email = 'any_email@mail.com'
-    const response = await registerUserOnMailingList.execute({ name, email })
+    const response = await registerUserOnMailingList.perform({ name, email })
     const user = await usersRepository.findUserByEmail(email)
 
     expect(user.name).toBe('any_name')
@@ -22,7 +22,7 @@ describe('Register user on mailing list use case', () => {
     const registerUserOnMailingList = new RegisterUserOnMailingList(usersRepository)
     const name = 'any_name'
     const invalidEmail = 'invalid_email'
-    const response = (await registerUserOnMailingList.execute({ name, email: invalidEmail })).value as Error
+    const response = (await registerUserOnMailingList.perform({ name, email: invalidEmail })).value as Error
     const user = await usersRepository.findUserByEmail(invalidEmail)
 
     expect(user).toBeNull()
@@ -35,7 +35,7 @@ describe('Register user on mailing list use case', () => {
     const registerUserOnMailingList = new RegisterUserOnMailingList(usersRepository)
     const invalidName = ''
     const email = 'any_email@mail.com'
-    const response = (await registerUserOnMailingList.execute({ name: invalidName, email })).value as Error
+    const response = (await registerUserOnMailingList.perform({ name: invalidName, email })).value as Error
     const user = await usersRepository.findUserByEmail(email)
 
     expect(user).toBeNull()
