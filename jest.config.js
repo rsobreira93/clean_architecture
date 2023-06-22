@@ -8,7 +8,7 @@ module.exports = {
     '!**/test/**',
     '!**/config/**',
   ],
-  testEnvironment: 'node',
+  // testEnvironment: 'node',
   transform: {
     '.+\\.ts$': 'ts-jest',
   },
@@ -16,4 +16,5 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@test/(.*)$': '<rootDir>/test/$1',
   },
+  setupFiles: ['dotenv/config'],
 }
