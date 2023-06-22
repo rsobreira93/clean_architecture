@@ -7,11 +7,11 @@ export class NodemailerEmailService implements EmailService {
   async send (options: EmailOptions): Promise<Either<MailServiceError, EmailOptions>> {
     try {
       const transporter = nodemailer.createTransport({
-        host: options.host,
-        port: options.port,
+        host: 'smtp.ethereal.email',
+        port: 587,
         auth: {
-          user: options.username,
-          pass: options.password
+          user: 'clara.brown80@ethereal.email',
+          pass: 'vdqaBkfa5q4p4qfbs8'
         }
       })
 
@@ -24,6 +24,7 @@ export class NodemailerEmailService implements EmailService {
         attachments: options.attachments
       })
     } catch (err) {
+      console.log(err)
       return left(new MailServiceError())
     }
     return right(options)

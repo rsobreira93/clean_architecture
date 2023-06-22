@@ -2,17 +2,18 @@
 import { EmailOptions } from '@/use-cases/send-email/dtos'
 
 const attachments = [{
-  filename: 'text.txt',
-  path: '../../resources/text.txt'
+  filename: 'clean-architecture.pdf',
+  path: 'https://otaviolemos.github.io/clean-architecture.pdf'
 }]
+
 export function getEmailOptions (): EmailOptions {
-  const from = 'Romulo Sobreira | <sobreiraromuloes@gmail.com>'
+  const from = 'Romulo Sobreira | <clara.brown80@ethereal.email>'
   const to = ''
   const mailOptions: EmailOptions = {
-    host: process.env.EMAIL_HOST,
-    port: Number.parseInt(process.env.EMAIL_PORT),
-    username: process.env.EMAIL_USERNAME,
-    password: process.env.EMAIL_PASSWORD,
+    host: 'smtp.ethereal.email',
+    port: 587,
+    username: 'clara.brown80@ethereal.email',
+    password: 'vdqaBkfa5q4p4qfbs8',
     from,
     to,
     subject: 'Messagem de teste',
